@@ -1,13 +1,19 @@
+import 'package:chat_app/colors.dart';
+import 'package:chat_app/features/landing/landing_screen.dart';
+import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/responsive/responsive.dart';
+import 'package:chat_app/router.dart';
+import 'package:chat_app/screens/mobilescreenlayout.dart';
 import 'package:chat_app/screens/signin.dart';
 import 'package:chat_app/screens/signup.dart';
+import 'package:chat_app/screens/webscreenlayout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -20,16 +26,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-        home: StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData)
-                return Signin();
-              else
-                return SignUp();
-            }));
+        theme:
+            ThemeData.dark().copyWith(scaffoldBackgroundColor: backgroundColor),
+        onGenerateRoute: (settings) => generateRoute(settings),
+        home: const LandingScreen());
   }
 }
