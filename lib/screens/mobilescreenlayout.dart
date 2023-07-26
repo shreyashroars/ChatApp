@@ -1,10 +1,11 @@
 import 'package:chat_app/colors.dart';
-import 'package:chat_app/screens/mobile_chat_screen.dart';
+import 'package:chat_app/features/select_contacts/screen/select_contact_screen.dart';
+import 'package:chat_app/features/chat/screens/mobile_chat_screen.dart';
 import 'package:chat_app/widgets/contacts_list.dart';
 import 'package:flutter/material.dart';
 
-class MobileScreenLayout extends StatelessWidget {
-  const MobileScreenLayout({super.key});
+class MobileLayoutScreen extends StatelessWidget {
+  const MobileLayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,8 @@ class MobileScreenLayout extends StatelessWidget {
           body: const ContactsList(),
           floatingActionButton: FloatingActionButton(
               backgroundColor: tabColor,
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.pushNamed(context, SelectContactsScreen.routeName),
               child: Icon(
                 Icons.message_rounded,
                 color: Colors.white,
